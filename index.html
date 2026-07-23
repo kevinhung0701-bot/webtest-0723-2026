@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新竹的芒果樹 - 四季風情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 按鈕hover與點擊動畫效果 */
+        .season-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .season-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        .season-btn:active {
+            transform: scale(0.95);
+        }
+        /* 四季背景切換淡入效果 */
+        .bg-layer {
+            transition: opacity 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans h-screen w-screen overflow-hidden relative select-none">
+
+    <!-- 背景圖片容器 (預設顯示夏日) -->
+    <div id="bg-container" class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-layer"
+         style="background-image: url('https://picsum.photos/id/1054/1920/1080');">
+        <!-- 遮罩以確保文字與按鈕清晰 -->
+        <div class="absolute inset-0 bg-black/20"></div>
+    </div>
+
+    <!-- 中央標題與說明 -->
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 text-center z-10 pointer-events-none">
+        <h1 class="text-3xl md:text-5xl font-bold tracking-wider drop-shadow-lg bg-black/40 px-6 py-3 rounded-full backdrop-blur-md border border-white/20">
+            新竹的檨仔・四季風情
+        </h1>
+        <p id="season-desc" class="mt-4 text-base md:text-lg text-amber-200 drop-shadow bg-black/30 px-4 py-1.5 rounded-full inline-block backdrop-blur-sm">
+            點擊四周按鈕，探索新竹芒果樹的季節變化
+        </p>
+    </div>
+
+    <!-- 四個角落的按鈕 -->
+    <!-- 1. 左上：春 -->
+    <button onclick="changeSeason('spring')" 
+            class="season-btn absolute top-6 left-6 z-20 w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-emerald-400/80 bg-emerald-950/80 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer group">
+        <span class="text-2xl md:text-4xl font-black text-emerald-300 group-hover:text-white">春</span>
+        <span class="text-xs md:text-sm text-emerald-200/80 mt-1">春暖花開</span>
+    </button>
+
+    <!-- 2. 右上：夏 -->
+    <button onclick="changeSeason('summer')" 
+            class="season-btn absolute top-6 right-6 z-20 w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-amber-400/80 bg-amber-950/80 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer group">
+        <span class="text-2xl md:text-4xl font-black text-amber-300 group-hover:text-white">夏</span>
+        <span class="text-xs md:text-sm text-amber-200/80 mt-1">盛夏芒果</span>
+    </button>
+
+    <!-- 3. 左下：秋 -->
+    <button onclick="changeSeason('autumn')" 
+            class="season-btn absolute bottom-6 left-6 z-20 w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-orange-500/80 bg-orange-950/80 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer group">
+        <span class="text-2xl md:text-4xl font-black text-orange-300 group-hover:text-white">秋</span>
+        <span class="text-xs md:text-sm text-orange-200/80 mt-1">秋風紅葉</span>
+    </button>
+
+    <!-- 4. 右下：冬 -->
+    <button onclick="changeSeason('winter')" 
+            class="season-btn absolute bottom-6 right-6 z-20 w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-sky-400/80 bg-slate-900/80 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer group">
+        <span class="text-2xl md:text-4xl font-black text-sky-300 group-hover:text-white">冬</span>
+        <span class="text-xs md:text-sm text-sky-200/80 mt-1">冬日幽靜</span>
+    </button>
+
+    <!-- JavaScript 控制邏輯 -->
+    <script>
+        // 四季的背景圖片與描述文字 (請將圖片URL替換為您自己的照片路徑)
+        const seasons = {
+            spring: {
+                bg: 'Gemini_Generated_Image_2q6b8x2q6b8x2q6b.png', // 可替換為：春季芒果樹花開 + 蜜蜂野貓圖
+                desc: '🌸 春季：芒果樹花開，蜜蜂忙採蜜，野貓在樹下繁花間打滾。'
+            },
+            summer: {
+                bg: '1000019463.JPG', // 可替換為：盛夏芒果結實纍纍 + 鴿子野貓圖
+                desc: '🥭 夏季：新竹九降風吹過，結滿碩大芒果，鴿子棲息樹梢、野貓樹下乘涼。'
+            },
+            autumn: {
+                bg: 'Gemini_Generated_Image_2q6b8x2q6b8x2q6b.png', // 可替換為：秋季景致
+                desc: '🍂 秋季：採收過後，秋高氣爽，野貓在陽光灑落的樹根旁打瞌睡。'
+            },
+            winter: {
+                bg: 'Gemini_Generated_Image_2q6b8x2q6b8x2q6b.png', // 可替換為：冬季景致
+                desc: '❄️ 冬季：九降風強勁，老芒果樹挺立，鴿子與野貓尋找溫暖避風角。'
+            }
+        };
+
+        function changeSeason(seasonKey) {
+            const container = document.getElementById('bg-container');
+            const desc = document.getElementById('season-desc');
+
+            // 1. 淡出當前背景
+            container.style.opacity = '0.3';
+
+            // 2. 切換圖片與文字
+            setTimeout(() => {
+                container.style.backgroundImage = `url('${seasons[seasonKey].bg}')`;
+                desc.textContent = seasons[seasonKey].desc;
+                // 淡入新背景
+                container.style.opacity = '1';
+            }, 300);
+        }
+    </script>
+</body>
+</html>
