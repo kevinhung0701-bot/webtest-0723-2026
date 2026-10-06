@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VERDE 綠境碼錶</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 65% 35%, #194732, #081710 65%);
+  color: #edf2e5;
+  font-family: Arial, "Microsoft JhengHei", sans-serif;
+}
+header {
+  padding: 28px 7%;
+  border-bottom: 1px solid #ffffff18;
+  color: #cbb57d;
+  font: 24px Georgia, serif;
+  letter-spacing: 5px;
+}
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 70px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 60px;
+}
+.intro { max-width: 400px; }
+.eyebrow { color: #cbb57d; font-size: 11px; letter-spacing: 3px; }
+h1 { font-size: 44px; font-weight: 500; letter-spacing: 5px; }
+.subtitle {
+  color: #b2c5ad;
+  font: italic 26px Georgia, serif;
+}
+.description { color: #93aa97; line-height: 2; }
+.instrument { text-align: center; }
+.watch {
+  width: 340px;
+  height: 340px;
+  padding: 9px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d2d8c9, #46564a, #bdc9b5, #3c5144);
+  box-shadow: 0 25px 60px #0009;
+  margin: 0 auto 32px;
+}
+.bezel {
+  width: 100%;
+  height: 100%;
+  padding: 35px;
+  position: relative;
+  border-radius: 50%;
+  background: conic-gradient(#286f49, #10472e, #37865a, #10472e, #286f49);
+  border: 2px solid #123f2b;
+}
+.bezel-label {
+  position: absolute;
+  color: #e4e7cf;
+  font: bold 17px Georgia, serif;
+  transform: translate(-50%, -50%);
+}
+.dial {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 25%, #28573c, #061e12 75%);
+  border: 3px solid #b3c0a6;
+  box-shadow: inset 0 0 25px #0008;
+}
+.marker {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #aebca1;
+  border-radius: 50%;
+  background: #e3edcf;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px #d6ffad55;
+}
+.marker.bar { width: 9px; height: 22px; border-radius: 1px; }
+.marker.triangle {
+  width: 0;
+  height: 0;
+  background: none;
+  border: 10px solid transparent;
+  border-top: 21px solid #e3edcf;
+  border-bottom: 0;
+  border-radius: 0;
+}
+.logo {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  color: #e4e7cc;
+  font: 19px Georgia, serif;
+  letter-spacing: 2px;
+}
+.logo small {
+  display: block;
+  margin-top: 6px;
+  font: 6px Arial, sans-serif;
+  letter-spacing: 1.5px;
+}
+.caption {
+  position: absolute;
+  bottom: 45px;
+  width: 100%;
+  font-size: 7px;
+  letter-spacing: 1px;
+  line-height: 1.8;
+  color: #bccdb0;
+}
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: center bottom;
+  border-radius: 2px;
+}
+.minute {
+  height: 65px;
+  width: 7px;
+  margin-left: -3.5px;
+  background: #dce9c9;
+  border: 1px solid #a6b492;
+}
+.second {
+  height: 100px;
+  width: 2px;
+  margin-left: -1px;
+  background: #d1b977;
+}
+.second::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e3edcf;
+}
+.pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #d1bc85;
+}
+.status { color: #cbb57d; font-size: 10px; letter-spacing: 2px; }
+.time {
+  margin: 12px 0 8px;
+  font: 48px "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+}
+.time span { font-size: 30px; color: #91ab96; }
+.units { color: #809787; font-size: 8px; letter-spacing: 2px; }
+.controls { display: flex; gap: 10px; margin-top: 26px; }
+button {
+  flex: 1;
+  padding: 15px 18px;
+  border: 1px solid #687b65;
+  border-radius: 3px;
+  background: #ffffff06;
+  color: #e0ead7;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+button:hover:enabled { background: #ffffff18; }
+button:disabled { opacity: .3; cursor: default; }
+button:focus-visible { outline: 2px solid #d1bc85; outline-offset: 4px; }
+#start { background: #c5af79; border-color: #c5af79; color: #142719; }
+#reset { margin-top: 12px; border: none; color: #9eb09b; background: none; }
+footer {
+  margin: 0 7%;
+  padding: 25px 0;
+  border-top: 1px solid #ffffff18;
+  text-align: center;
+  color: #7d9582;
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+@media (max-width: 750px) {
+  main { flex-direction: column; padding: 40px 15px; gap: 35px; }
+  .intro { text-align: center; }
+  h1 { font-size: 34px; }
+}
+@media (max-width: 380px) {
+  .watch { width: 300px; height: 300px; }
+  .logo { top: 30px; }
+  .caption { bottom: 32px; }
+  .second { height: 82px; }
+}
+</style>
+</head>
+<body>
+<header>◆ VERDE</header>
+<main>
+  <section class="intro">
+    <div class="eyebrow">THE CHRONOGRAPH COLLECTION</div>
+    <h1>掌握每一刻</h1>
+    <div class="subtitle">Make every second count.</div>
+    <p class="description">
+      深海綠的沉靜，精準計時的節奏。<br>
+      從這一秒，開始你的下一段旅程。
+    </p>
+  </section>
+  <section class="instrument" aria-label="碼錶">
+    <div class="watch">
+      <div class="bezel" id="bezel">
+        <div class="dial" id="dial">
+          <div class="logo">♛<br>VERDE<small>OYSTER CHRONOGRAPH</small></div>
+          <div class="caption">AUTOMATIC PRECISION<br>PROFESSIONAL TIMER</div>
+          <div class="hand minute" id="minute"></div>
+          <div class="hand second" id="second"></div>
+          <div class="pin"></div>
+        </div>
+      </div>
+    </div>
+    <div class="status" id="status" role="status">READY TO BEGIN</div>
+    <div class="time" id="time" role="timer">00:00<span>.00</span></div>
+    <div class="units">MINUTES / SECONDS / CENTISECONDS</div>
+    <div class="controls">
+      <button id="start">▶ START</button>
+      <button id="stop" disabled>■ STOP</button>
+      <button id="resume" disabled>↗ RESUME</button>
+    </div>
+    <button id="reset" disabled>↺ 重設計時</button>
+  </section>
+</main>
+<footer>INSPIRED BY THE DEEP · BUILT FOR YOUR MOMENT</footer>
+<script>
+const $ = id => document.getElementById(id);
+
+for (let i = 0; i < 12; i++) {
+  const angle = i * Math.PI / 6;
+  const marker = document.createElement("div");
+  marker.className = "marker " +
+    (i === 0 ? "triangle" : i % 3 === 0 ? "bar" : "");
+  marker.style.left = (50 + Math.sin(angle) * 40) + "%";
+  marker.style.top = (50 - Math.cos(angle) * 40) + "%";
+  $("dial").appendChild(marker);
+
+  const label = document.createElement("span");
+  label.className = "bezel-label";
+  label.textContent = i === 0 ? "▼" : i % 2 === 0 ? i * 5 : "┃";
+  label.style.left = (50 + Math.sin(angle) * 44) + "%";
+  label.style.top = (50 - Math.cos(angle) * 44) + "%";
+  $("bezel").appendChild(label);
+}
+
+let saved = 0, began = 0, running = false, frame = null;
+const elapsed = () => saved + (running ? performance.now() - began : 0);
+const pad = number => String(number).padStart(2, "0");
+
+function render() {
+  const ms = elapsed();
+  $("time").innerHTML =
+    pad(Math.floor(ms / 60000)) + ":" +
+    pad(Math.floor(ms / 1000) % 60) +
+    "<span>." + pad(Math.floor(ms / 10) % 100) + "</span>";
+  $("second").style.transform = "rotate(" + ms / 1000 * 6 + "deg)";
+  $("minute").style.transform = "rotate(" + ms / 60000 * 6 + "deg)";
+  if (running) frame = requestAnimationFrame(render);
+}
+
+function sync() {
+  $("start").disabled = running || saved > 0;
+  $("stop").disabled = !running;
+  $("resume").disabled = running || saved === 0;
+  $("reset").disabled = !running && saved === 0;
+  $("status").textContent = running
+    ? "TIMING IN PROGRESS"
+    : saved > 0 ? "PAUSED · TAKE YOUR TIME" : "READY TO BEGIN";
+}
+
+function begin() {
+  if (running) return;
+  began = performance.now();
+  running = true;
+  sync();
+  render();
+}
+
+$("start").onclick = begin;
+$("resume").onclick = begin;
+$("stop").onclick = () => {
+  if (!running) return;
+  saved = elapsed();
+  running = false;
+  cancelAnimationFrame(frame);
+  sync();
+  render();
+};
+$("reset").onclick = () => {
+  running = false;
+  saved = 0;
+  cancelAnimationFrame(frame);
+  sync();
+  render();
+};
+sync();
+render();
+</script>
+</body>
+</html>
